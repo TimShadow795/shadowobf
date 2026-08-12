@@ -1,284 +1,694 @@
+<!-- START FILE -->
+
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShadowObfuscate — HARD</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #050505; color: #fff; min-height: 100vh; }
-        .bg-lines {
-            position: fixed; inset: 0;
-            background-image: repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.015) 80px, rgba(255,255,255,0.015) 81px);
-            pointer-events: none; z-index: 0;
-        }
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; height: 64px;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 100; background: rgba(5,5,5,0.85); backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-        .nav-inner {
-            display: flex; gap: 6px; background: rgba(255,255,255,0.03);
-            padding: 6px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.06);
-        }
-        .nav-item {
-            padding: 8px 18px; border-radius: 100px; color: #a1a1aa;
-            text-decoration: none; font-size: 14px; font-weight: 500;
-        }
-        .nav-item.active { background: rgba(255,255,255,0.1); color: #fff; }
-        .hero { padding: 110px 20px 30px; text-align: center; position: relative; z-index: 1; }
-        h1 {
-            font-size: clamp(2.8rem, 8vw, 4.5rem); font-weight: 800;
-            color: #e4e4e7; letter-spacing: -2px; margin-bottom: 10px;
-        }
-        .subtitle { color: #71717a; font-size: 1.05rem; margin-bottom: 24px; }
-        .obfuscator {
-            max-width: 1000px; margin: 0 auto 80px; padding: 0 20px; position: relative; z-index: 1;
-        }
-        .obf-box {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 20px; overflow: hidden;
-        }
-        .obf-header {
-            padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.06);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .obf-title { font-weight: 600; font-size: 15px; }
-        .obf-badge {
-            font-size: 12px; padding: 4px 10px; background: rgba(255,255,255,0.06);
-            border-radius: 100px; color: #a1a1aa;
-        }
-        .obf-body { display: grid; grid-template-columns: 1fr 1fr; }
-        @media (max-width: 800px) { .obf-body { grid-template-columns: 1fr; } }
-        .code-side { padding: 20px; }
-        .code-side:first-child { border-right: 1px solid rgba(255,255,255,0.06); }
-        @media (max-width: 800px) {
-            .code-side:first-child { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        }
-        .code-label {
-            font-size: 12px; color: #71717a; margin-bottom: 12px;
-            text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500;
-        }
-        textarea {
-            width: 100%; height: 340px; background: transparent; border: none;
-            color: #d4d4d8; font-family: Consolas, monospace; font-size: 12px;
-            line-height: 1.5; resize: none; outline: none;
-        }
-        .output-code {
-            height: 340px; color: #a1a1aa; font-family: Consolas, monospace;
-            font-size: 12px; line-height: 1.5; overflow-y: auto;
-            white-space: pre-wrap; word-break: break-all;
-        }
-        .obf-footer {
-            padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06);
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-        }
-        .options { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: #a1a1aa; }
-        .options label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
-        .obf-btn {
-            padding: 10px 28px; background: #fff; color: #000; border: none;
-            border-radius: 100px; font-weight: 600; font-size: 14px; cursor: pointer;
-        }
-        footer { text-align: center; padding: 30px 20px; color: #52525b; font-size: 13px; }
-    </style>
+<meta charset="UTF-8">
+
+<title>ShadowObfuscate HARD X</title>
+
+
+<style>
+
+/* === CSS START === */
+
+*{
+box-sizing:border-box;
+font-family:Consolas,monospace;
+}
+
+
+body{
+
+margin:0;
+height:100vh;
+
+background:
+radial-gradient(circle,#400080,#050505 70%);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:white;
+
+}
+
+
+
+.app{
+
+width:1100px;
+
+background:#0b0b0f;
+
+border:1px solid #8000ff;
+
+border-radius:20px;
+
+padding:25px;
+
+box-shadow:
+0 0 50px #7000ff;
+
+
+}
+
+
+
+.header{
+
+display:flex;
+justify-content:space-between;
+
+border-bottom:1px solid #333;
+
+padding-bottom:15px;
+
+}
+
+
+
+.logo{
+
+font-size:32px;
+font-weight:bold;
+
+}
+
+
+.logo span{
+
+color:#b000ff;
+
+}
+
+
+
+.build{
+
+color:#888;
+
+}
+
+
+
+.container{
+
+display:grid;
+
+grid-template-columns:260px 1fr;
+
+gap:20px;
+
+margin-top:20px;
+
+}
+
+
+
+
+.panel{
+
+background:#111;
+
+border-radius:15px;
+
+border:1px solid #333;
+
+padding:15px;
+
+}
+
+
+
+.option{
+
+background:#070707;
+
+padding:10px;
+
+margin-top:10px;
+
+border-radius:8px;
+
+display:flex;
+
+justify-content:space-between;
+
+}
+
+
+
+input{
+
+accent-color:#a000ff;
+
+}
+
+
+
+textarea{
+
+width:100%;
+
+height:230px;
+
+background:#050505;
+
+border:1px solid #7000ff;
+
+border-radius:10px;
+
+color:#00ff99;
+
+padding:15px;
+
+resize:none;
+
+}
+
+
+
+button{
+
+width:100%;
+
+margin-top:10px;
+
+padding:13px;
+
+border:0;
+
+border-radius:10px;
+
+background:
+linear-gradient(
+90deg,
+#6500ff,
+#c000ff
+);
+
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+
+
+button:hover{
+
+box-shadow:
+0 0 20px #a000ff;
+
+}
+
+
+
+.status{
+
+margin-top:10px;
+
+color:#00ff99;
+
+}
+
+
+
+/* === CSS END === */
+
+</style>
+
+
 </head>
+
+
 <body>
-    <div class="bg-lines"></div>
 
-    <nav>
-        <div class="nav-inner">
-            <a href="#" class="nav-item active">Home</a>
-            <a href="#obfuscator" class="nav-item">Obfuscator</a>
-        </div>
-    </nav>
 
-    <section class="hero">
-        <h1>ShadowObfuscate</h1>
-        <p class="subtitle">HARD mode • Free • Roblox</p>
-    </section>
+<div class="app">
 
-    <section class="obfuscator" id="obfuscator">
-        <div class="obf-box">
-            <div class="obf-header">
-                <div class="obf-title">ShadowObfuscate HARD</div>
-                <div class="obf-badge">Free</div>
-            </div>
-            <div class="obf-body">
-                <div class="code-side">
-                    <div class="code-label">Input</div>
-                    <textarea id="input">print("Hello, World!")</textarea>
-                </div>
-                <div class="code-side">
-                    <div class="code-label">Output (HARD)</div>
-                    <div class="output-code" id="output">-- Нажми Obfuscate</div>
-                </div>
-            </div>
-            <div class="obf-footer">
-                <div class="options">
-                    <label><input type="checkbox" id="optJunk" checked> Heavy Junk</label>
-                    <label><input type="checkbox" id="optAnti" checked> Anti-Tamper</label>
-                    <label><input type="checkbox" id="optBig" checked> Max Size</label>
-                </div>
-                <button class="obf-btn" onclick="runHard()">Obfuscate HARD</button>
-            </div>
-        </div>
-    </section>
 
-    <footer>ShadowObfuscate • HARD mode • Free Forever</footer>
+<div class="header">
+
+<div class="logo">
+ShadowObfuscate <span>HARD X</span>
+</div>
+
+
+<div class="build">
+BUILD 832814
+</div>
+
+</div>
+
+
+
+<div class="container">
+
+
+
+<div class="panel">
+
+
+<h3>Protection Engine</h3>
+
+
+<div class="option">
+String Encrypt
+<input id="enc" type="checkbox" checked>
+</div>
+
+
+<div class="option">
+Rename
+<input id="rename" type="checkbox" checked>
+</div>
+
+
+<div class="option">
+Constants
+<input id="const" type="checkbox" checked>
+</div>
+
+
+<div class="option">
+Junk
+<input id="junk" type="checkbox" checked>
+</div>
+
+
+
+<button onclick="protect()">
+OBFUSCATE
+</button>
+
+
+<button onclick="copyCode()">
+COPY
+</button>
+
+
+<button onclick="downloadLua()">
+DOWNLOAD
+</button>
+
+
+<p class="status" id="status">
+READY
+</p>
+
+
+</div>
+
+
+
+<div class="panel">
+
+
+<h3>INPUT LUA</h3>
+
+<textarea id="input"
+placeholder="Paste Luau code here..."></textarea>
+
+
+<h3>OUTPUT</h3>
+
+<textarea id="output"
+readonly></textarea>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
 
 <script>
-function randName(len = 8) {
-    const chars = 'Il1O0o';
-    let s = '_';
-    for (let i = 0; i < len; i++) s += chars[Math.floor(Math.random() * chars.length)];
-    return s + Math.floor(Math.random() * 9999);
+
+
+function randomName(){
+
+let chars=
+"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+let out="_";
+
+for(let i=0;i<12;i++){
+
+out+=chars[
+Math.floor(Math.random()*chars.length)
+];
+
 }
 
-function randInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+return out;
+
 }
 
-function generateJunkBlock() {
-    const a = randName(6);
-    const b = randName(6);
-    const c = randName(5);
-    return `
-local ${a} = ${randInt(1000,9999)}
-local ${b} = function(...)
-    local ${c} = {...}
-    if ${a} > ${randInt(10000,50000)} then
-        return ${c}[1]
-    end
-    return nil
+
+
+
+function encryptString(text){
+
+let arr=[];
+
+
+for(let i=0;i<text.length;i++){
+
+arr.push(
+text.charCodeAt(i)^91
+);
+
+}
+
+
+return `(function()
+local d={${arr.join(",")}}
+local s=""
+for i,v in ipairs(d) do
+s=s..string.char(bit32.bxor(v,91))
 end
-${b}(${randInt(1,100)}, ${randInt(1,100)}, ${randInt(1,100)})
-`;
-}
-
-function multiEncrypt(str, keys) {
-    let data = [];
-    for (let i = 0; i < str.length; i++) {
-        let c = str.charCodeAt(i);
-        for (const k of keys) {
-            c = c ^ k;
-            c = (c + k) & 0xFF;
-        }
-        data.push(c);
-    }
-    return data.map(b => (b < 16 ? '0' : '') + b.toString(16)).join('');
-}
-
-function runHard() {
-    const src = document.getElementById('input').value;
-    const out = document.getElementById('output');
-    const useJunk = document.getElementById('optJunk').checked;
-    const useAnti = document.getElementById('optAnti').checked;
-    const maxSize = document.getElementById('optBig').checked;
-
-    if (!src.trim()) {
-        out.textContent = '-- Вставь код';
-        return;
-    }
-
-    const buildId = randInt(100000, 999999);
-    const keys = [randInt(20, 90), randInt(30, 120), randInt(15, 80)];
-
-    const encrypted = multiEncrypt(src, keys);
-
-    const chunkSize = maxSize ? 48 : 96;
-    const chunks = [];
-    for (let i = 0; i < encrypted.length; i += chunkSize) {
-        chunks.push(encrypted.substr(i, chunkSize));
-    }
-
-    const varPayload = randName(7);
-    const varKeys = randName(6);
-    const varDec = randName(8);
-    const varLoad = randName(7);
-    const varState = randName(5);
-    const varBuf = randName(6);
-
-    let junkTop = '';
-    let junkMid = '';
-    if (useJunk) {
-        for (let i = 0; i < (maxSize ? 18 : 8); i++) junkTop += generateJunkBlock();
-        for (let i = 0; i < (maxSize ? 12 : 5); i++) junkMid += generateJunkBlock();
-    }
-
-    let anti = '';
-    if (useAnti) {
-        const antiName = randName(5);
-        anti = `
-local ${antiName} = function()
-    if type(string.char) ~= "function" then return false end
-    if type(bit32) ~= "table" then return false end
-    if type(table.concat) ~= "function" then return false end
-    return true
-end
-if not ${antiName}() then
-    while true do end
-end
-`;
-    }
-
-    let payloadTable = `local ${varPayload} = {\n`;
-    chunks.forEach((ch, i) => {
-        payloadTable += `    [${i+1}] = "${ch}",\n`;
-    });
-    payloadTable += `}\n`;
-
-    // ВАЖНО: bit32.band вместо &
-    const result = `-- ShadowObfuscate HARD | Build ${buildId}
-
-return (function()
-${junkTop}
-${anti}
-    local ${varKeys} = {${keys.join(',')}}
-    ${payloadTable}
-
-    local function ${varDec}(hex)
-        local ${varBuf} = {}
-        for i = 1, #hex, 2 do
-            local b = tonumber(hex:sub(i, i + 1), 16) or 0
-            for j = #${varKeys}, 1, -1 do
-                local k = ${varKeys}[j]
-                b = bit32.band(b - k, 255)
-                b = bit32.bxor(b, k)
-            end
-            ${varBuf}[#${varBuf} + 1] = string.char(b)
-        end
-        return table.concat(${varBuf})
-    end
-
-${junkMid}
-
-    local ${varState} = 1
-    local ${varLoad}
-    while ${varState} do
-        if ${varState} == 1 then
-            local parts = {}
-            for i = 1, #${varPayload} do
-                parts[i] = ${varDec}(${varPayload}[i])
-            end
-            ${varLoad} = table.concat(parts)
-            ${varState} = 2
-        elseif ${varState} == 2 then
-            local fn, err = loadstring(${varLoad})
-            if not fn then
-                return
-            end
-            ${varState} = 3
-            return fn()
-        else
-            break
-        end
-    end
+return s
 end)()`;
 
-    out.textContent = result;
 }
+
+
+
+
+
+function renameVariables(code){
+
+
+let vars =
+code.match(
+/local\s+[a-zA-Z_][a-zA-Z0-9_]*/g
+);
+
+
+
+if(!vars)
+return code;
+
+
+
+vars.forEach(v=>{
+
+
+let old=
+v.replace("local ","");
+
+
+let n=
+randomName();
+
+
+
+code =
+code.split(old)
+.join(n);
+
+
+
+});
+
+
+return code;
+
+}
+
+
+
+
+
+function hideNumbers(code){
+
+return code.replace(
+
+/\b[0-9]+\b/g,
+
+function(n){
+
+let x=
+Math.floor(Math.random()*50)+1;
+
+
+return `(${n}+${x}-${x})`;
+
+}
+
+);
+
+}
+
+
+
+
+
+function junkCode(){
+
+let out="";
+
+
+for(let i=0;i<25;i++){
+
+
+out+=`
+
+local ${randomName()} =
+function()
+
+local ${randomName()} =
+${Math.floor(Math.random()*99999)}
+
+return ${randomName()}
+
+end
+
+
+`;
+
+}
+
+
+return out;
+
+}
+
+
+
+
+
+function protect(){
+
+
+let code =
+document.getElementById("input").value;
+
+
+
+if(code.length===0){
+
+alert("Insert Lua code");
+
+return;
+
+}
+
+
+
+
+
+// remove comments
+
+code =
+code.replace(
+/--.*/g,
+""
+);
+
+
+
+
+// rename
+
+if(
+document.getElementById("rename").checked
+){
+
+code =
+renameVariables(code);
+
+}
+
+
+
+
+// strings
+
+if(
+document.getElementById("enc").checked
+){
+
+code =
+code.replace(
+
+/"([^"]*)"/g,
+
+function(a,b){
+
+return encryptString(b);
+
+}
+
+);
+
+}
+
+
+
+
+
+// constants
+
+if(
+document.getElementById("const").checked
+){
+
+code =
+hideNumbers(code);
+
+}
+
+
+
+
+// junk
+
+if(
+document.getElementById("junk").checked
+){
+
+code =
+junkCode()
++
+code;
+
+}
+
+
+
+
+
+let build =
+Math.floor(
+Math.random()*999999
+);
+
+
+
+document.getElementById("output").value =
+
+"-- ShadowObfuscate HARD X\n"+
+"-- Protected Build "+build+
+"\n\n"+
+code;
+
+
+
+document.getElementById("status").innerHTML =
+
+"PROTECTED | BUILD "+build;
+
+
+
+}
+
+
+
+
+
+
+
+function copyCode(){
+
+navigator.clipboard.writeText(
+
+document.getElementById("output").value
+
+);
+
+
+document.getElementById("status").innerHTML=
+"Copied.";
+
+}
+
+
+
+
+
+
+
+function downloadLua(){
+
+
+
+let data =
+
+document.getElementById("output").value;
+
+
+
+let blob =
+
+new Blob(
+[data],
+{
+type:"text/plain"
+}
+);
+
+
+
+let link =
+document.createElement("a");
+
+
+
+link.href =
+URL.createObjectURL(blob);
+
+
+
+link.download =
+"ShadowProtected.lua";
+
+
+
+link.click();
+
+
+
+document.getElementById("status").innerHTML=
+"Downloaded.";
+
+}
+
+
+
+
 </script>
+
+
 </body>
 </html>
