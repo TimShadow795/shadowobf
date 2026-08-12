@@ -337,48 +337,124 @@ readonly></textarea>
 
 function randomName(){
 
-let chars=
-"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let chars =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-let out="_";
+    let result = "_";
 
-for(let i=0;i<12;i++){
+    for(let i = 0; i < 10; i++){
 
-out+=chars[
-Math.floor(Math.random()*chars.length)
-];
+        result += chars[
+            Math.floor(Math.random()*chars.length)
+        ];
 
-}
+    }
 
-return out;
-
-}
-
-
-
-
-function encryptString(text){
-
-let arr=[];
-
-
-for(let i=0;i<text.length;i++){
-
-arr.push(
-text.charCodeAt(i)^91
-);
+    return result;
 
 }
 
 
-return `(function()
-local d={${arr.join(",")}}
-local s=""
-for i,v in ipairs(d) do
-s=s..string.char(bit32.bxor(v,91))
+
+function randomNumber(){
+
+    return Math.floor(
+        Math.random()*90000+10000
+    );
+
+}
+
+
+
+
+function encryptString(str){
+
+    let bytes=[];
+
+
+    for(let i=0;i<str.length;i++){
+
+        bytes.push(
+            str.charCodeAt(i)^133
+        );
+
+    }
+
+
+    return `(function()
+local _d={${bytes.join(",")}}
+local _s=""
+for _i,_v in ipairs(_d) do
+_s=_s..string.char(bit32.bxor(_v,133))
 end
-return s
+return _s
 end)()`;
+
+}
+
+
+
+
+
+function createJunk(amount){
+
+
+    let out="";
+
+
+    for(let i=0;i<amount;i++){
+
+
+        let name=randomName();
+
+
+        out +=
+`
+local ${name} = ${randomNumber()}
+
+local ${randomName()} = function()
+
+    local ${randomName()} = ${randomNumber()}
+
+    return ${randomNumber()}
+
+end
+
+`;
+
+
+    }
+
+
+    return out;
+
+}
+
+
+
+
+function hideNumbers(code){
+
+
+    return code.replace(
+        /\b[0-9]+\b/g,
+
+        function(num){
+
+
+            let a =
+            Math.floor(
+                Math.random()*500
+            );
+
+
+            return `(${num}+${a}-${a})`;
+
+
+        }
+
+    );
+
 
 }
 
@@ -389,40 +465,53 @@ end)()`;
 function renameVariables(code){
 
 
-let vars =
-code.match(
-/local\s+[a-zA-Z_][a-zA-Z0-9_]*/g
-);
+    let variables=[];
+
+
+    let regex =
+    /local\s+([A-Za-z_][A-Za-z0-9_]*)/g;
+
+
+    let match;
+
+
+    while(
+        (match=regex.exec(code))
+        !==null
+    ){
+
+        variables.push(match[1]);
+
+    }
 
 
 
-if(!vars)
-return code;
+    variables.forEach(old=>{
 
 
-
-vars.forEach(v=>{
-
-
-let old=
-v.replace("local ","");
+        let fresh =
+        randomName();
 
 
-let n=
-randomName();
+        let safe =
+        new RegExp(
+            "\\b"+old+"\\b",
+            "g"
+        );
 
 
-
-code =
-code.split(old)
-.join(n);
-
-
-
-});
+        code =
+        code.replace(
+            safe,
+            fresh
+        );
 
 
-return code;
+    });
+
+
+    return code;
+
 
 }
 
@@ -430,190 +519,144 @@ return code;
 
 
 
-function hideNumbers(code){
 
-return code.replace(
 
-/\b[0-9]+\b/g,
+function protectLua(){
 
-function(n){
 
-let x=
-Math.floor(Math.random()*50)+1;
+    let code =
+    document.getElementById("input").value;
 
 
-return `(${n}+${x}-${x})`;
 
-}
+    if(!code.trim()){
 
-);
+        alert("Empty script");
 
-}
+        return;
 
+    }
 
 
 
+    // удаляем комментарии
 
-function junkCode(){
+    code =
+    code.replace(
+        /--.*$/gm,
+        ""
+    );
 
-let out="";
 
 
-for(let i=0;i<25;i++){
 
+    // rename
 
-out+=`
+    if(
+    document.getElementById("rename")
+    .checked
+    ){
 
-local ${randomName()} =
-function()
+        code =
+        renameVariables(code);
 
-local ${randomName()} =
-${Math.floor(Math.random()*99999)}
+    }
 
-return ${randomName()}
 
-end
 
 
-`;
 
-}
+    // strings
 
+    if(
+    document.getElementById("strings")
+    .checked
+    ){
 
-return out;
+        code =
+        code.replace(
+        /"([^"]*)"/g,
 
-}
+        function(_,text){
 
+            return encryptString(text);
 
+        });
 
+    }
 
 
-function protect(){
 
 
-let code =
-document.getElementById("input").value;
 
+    // numbers
 
+    code =
+    hideNumbers(code);
 
-if(code.length===0){
 
-alert("Insert Lua code");
 
-return;
 
-}
 
+    // HARD junk
 
+    if(
+    document.getElementById("junk")
+    .checked
+    ){
 
 
+        code =
+        createJunk(250)
+        +
+        "\n"
+        +
+        code;
 
-// remove comments
 
-code =
-code.replace(
-/--.*/g,
-""
-);
+    }
 
 
 
 
-// rename
 
-if(
-document.getElementById("rename").checked
-){
+    let build =
+    Math.floor(
+        Math.random()*900000+
+        100000
+    );
 
-code =
-renameVariables(code);
 
-}
 
+    document.getElementById("output")
+    .value =
 
+`-- ShadowObfuscate HARD
+-- Build ${build}
+-- Protected
 
-
-// strings
-
-if(
-document.getElementById("enc").checked
-){
-
-code =
-code.replace(
-
-/"([^"]*)"/g,
-
-function(a,b){
-
-return encryptString(b);
-
-}
-
-);
-
-}
-
-
-
-
-
-// constants
-
-if(
-document.getElementById("const").checked
-){
-
-code =
-hideNumbers(code);
-
-}
-
-
-
-
-// junk
-
-if(
-document.getElementById("junk").checked
-){
-
-code =
-junkCode()
-+
-code;
-
-}
-
-
-
-
-
-let build =
-Math.floor(
-Math.random()*999999
-);
-
-
-
-document.getElementById("output").value =
-
-"-- ShadowObfuscate HARD X\n"+
-"-- Protected Build "+build+
-"\n\n"+
+`+
 code;
 
 
 
-document.getElementById("status").innerHTML =
-
-"PROTECTED | BUILD "+build;
-
+    document.getElementById("status")
+    .innerHTML =
+    "Protected BUILD "+build;
 
 
 }
 
 
+
+
+
+
+function obfuscate(){
+
+    protectLua();
+
+}
 
 
 
@@ -621,19 +664,17 @@ document.getElementById("status").innerHTML =
 
 function copyCode(){
 
-navigator.clipboard.writeText(
 
-document.getElementById("output").value
+    navigator.clipboard.writeText(
 
-);
+        document
+        .getElementById("output")
+        .value
 
+    );
 
-document.getElementById("status").innerHTML=
-"Copied.";
 
 }
-
-
 
 
 
@@ -642,47 +683,41 @@ document.getElementById("status").innerHTML=
 function downloadLua(){
 
 
-
-let data =
-
-document.getElementById("output").value;
-
-
-
-let blob =
-
-new Blob(
-[data],
-{
-type:"text/plain"
-}
-);
+    let text =
+    document
+    .getElementById("output")
+    .value;
 
 
 
-let link =
-document.createElement("a");
+    let blob =
+    new Blob(
+        [text],
+        {
+            type:"text/plain"
+        }
+    );
 
 
 
-link.href =
-URL.createObjectURL(blob);
+    let a =
+    document.createElement("a");
+
+
+    a.href =
+    URL.createObjectURL(blob);
 
 
 
-link.download =
-"ShadowProtected.lua";
+    a.download =
+    "ShadowProtected.lua";
 
 
+    a.click();
 
-link.click();
-
-
-
-document.getElementById("status").innerHTML=
-"Downloaded.";
 
 }
+
 
 
 
