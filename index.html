@@ -428,35 +428,36 @@ Ready
 
 
 <script>
-    // ShadowObfuscate HARD X Engine
+// ShadowObfuscate HARD X Engine FIXED
 
 
 function randName(){
 
-let chars =
-"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let chars =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-let s="_";
+    let s="_";
 
-for(let i=0;i<12;i++){
+    for(let i=0;i<12;i++){
 
-s+=chars[
-Math.floor(Math.random()*chars.length)
-];
+        s += chars[
+            Math.floor(Math.random()*chars.length)
+        ];
+
+    }
+
+    return s;
 
 }
 
-return s;
-
-}
 
 
 
 function randNum(){
 
-return Math.floor(
-Math.random()*999999
-);
+    return Math.floor(
+        Math.random()*900000+10000
+    );
 
 }
 
@@ -465,21 +466,22 @@ Math.random()*999999
 
 function stringEncode(str){
 
-let arr=[];
-
-for(let i=0;i<str.length;i++){
-
-arr.push(
-str.charCodeAt(i)^57
-);
-
-}
+    let arr=[];
 
 
-return `(function()
-local a={${arr.join(",")}}
+    for(let i=0;i<str.length;i++){
+
+        arr.push(
+            str.charCodeAt(i)^57
+        );
+
+    }
+
+
+    return `(function()
+local d={${arr.join(",")}}
 local s=""
-for i,v in ipairs(a) do
+for i,v in ipairs(d) do
 s=s..string.char(bit32.bxor(v,57))
 end
 return s
@@ -491,40 +493,40 @@ end)()`;
 
 
 
+
 function generateJunk(amount){
 
-
-let out="";
-
-
-for(let i=0;i<amount;i++){
+    let out="";
 
 
-let a=randName();
-let b=randName();
+    for(let i=0;i<amount;i++){
+
+        let a=randName();
+        let b=randName();
+        let c=randName();
 
 
-out+=`
-
-local ${a} = ${randNum()}
+        out +=
+`local ${a} = ${randNum()}
 
 local ${b} = function()
 
-local x = ${randNum()}
+local ${c} = ${randNum()}
 
-return x
+return ${c}
 
 end
 
-
 `;
 
+    }
+
+
+    return out;
+
 }
 
 
-return out;
-
-}
 
 
 
@@ -533,20 +535,22 @@ return out;
 function encryptStrings(code){
 
 
-return code.replace(
+    return code.replace(
+        /"([^"]*)"/g,
 
-/"([^"]*)"/g,
+        function(_,text){
 
-function(_,x){
+            return stringEncode(text);
 
-return stringEncode(x);
+        }
+
+    );
+
 
 }
 
-);
 
 
-}
 
 
 
@@ -554,50 +558,57 @@ return stringEncode(x);
 function renameLocals(code){
 
 
-let found=[];
+    let variables=[];
 
 
-let regex =
-/local\s+([A-Za-z_][A-Za-z0-9_]*)/g;
+    let regex =
+    /\blocal\s+([A-Za-z_][A-Za-z0-9_]*)/g;
 
 
-let m;
-
-
-while(
-(m=regex.exec(code))
-){
-
-found.push(m[1]);
-
-}
+    let match;
 
 
 
-for(let old of found){
+    while(
+        (match=regex.exec(code)) !== null
+    ){
+
+        variables.push(match[1]);
+
+    }
 
 
-let fresh =
-randName();
 
 
-code =
-code.replace(
-
-new RegExp(
-"\\b"+old+"\\b",
-"g"
-),
-
-fresh
-
-);
+    for(let oldName of variables){
 
 
-}
+        let newName =
+        randName();
 
 
-return code;
+
+        let safe =
+        new RegExp(
+            "\\b"+oldName+"\\b",
+            "g"
+        );
+
+
+
+        code =
+        code.replace(
+            safe,
+            newName
+        );
+
+
+    }
+
+
+
+    return code;
+
 
 }
 
@@ -610,33 +621,31 @@ return code;
 function hideConstants(code){
 
 
-return code.replace(
+    return code.replace(
 
-/(?<![A-Za-z_])\d+(?![A-Za-z_])/g,
+        /\b\d+\b/g,
 
-
-function(n){
-
-
-let x =
-Math.floor(
-Math.random()*100
-);
+        function(n){
 
 
-
-return "("+
-n+
-"+"+
-x+
-"-"+
-x+
-")";
+            let x =
+            Math.floor(
+                Math.random()*100
+            );
 
 
-}
+            return "("+
+            n+
+            "+"+
+            x+
+            "-"+
+            x+
+            ")";
 
-);
+
+        }
+
+    );
 
 
 }
@@ -650,149 +659,184 @@ x+
 function runObfuscate(){
 
 
-let code =
-document
-.getElementById("input")
-.value;
+
+    let code =
+    document
+    .getElementById("input")
+    .value;
 
 
 
-if(code.trim()==""){
+    if(!code.trim()){
 
-alert("Paste Lua code");
+        alert(
+        "Paste Lua code first"
+        );
 
-return;
+        return;
 
-}
-
-
-
-
-// remove comments
-
-code =
-code.replace(
-/--.*$/gm,
-""
-);
+    }
 
 
 
 
-// rename
+    // remove comments
 
-if(
-document
-.getElementById("rename")
-.checked
-){
-
-code =
-renameLocals(code);
-
-}
-
-
-
-
-// strings
-
-if(
-document
-.getElementById("strings")
-.checked
-){
-
-code =
-encryptStrings(code);
-
-}
-
-
-
-
-// preset
-
-let preset =
-document
-.getElementById("preset")
-.value;
-
-
-
-let junkCount=100;
-
-
-if(preset=="Strong")
-junkCount=400;
-
-
-if(preset=="MAX")
-junkCount=1000;
+    code =
+    code.replace(
+        /--.*$/gm,
+        ""
+    );
 
 
 
 
 
 
-if(
-document
-.getElementById("junk")
-.checked
-){
+    if(
+    document
+    .getElementById("rename")
+    .checked
+    ){
 
-code =
-generateJunk(junkCount)
-+
-"\n\n"+
-code;
+        code =
+        renameLocals(code);
 
-}
+    }
 
 
 
 
-let build =
-Math.floor(
-Math.random()*900000+
-100000
-);
 
 
 
-let output =
+    if(
+    document
+    .getElementById("strings")
+    .checked
+    ){
+
+        code =
+        encryptStrings(code);
+
+    }
+
+
+
+
+
+
+
+    code =
+    hideConstants(code);
+
+
+
+
+
+
+
+
+    let preset =
+    document
+    .getElementById("preset")
+    .value;
+
+
+
+
+
+    let junk=100;
+
+
+
+    if(preset=="Strong"){
+
+        junk=500;
+
+    }
+
+
+
+    if(preset=="MAX"){
+
+        junk=1600;
+
+    }
+
+
+
+
+
+
+
+    if(
+    document
+    .getElementById("junk")
+    .checked
+    ){
+
+        code =
+        generateJunk(junk)
+        +
+        "\n\n"
+        +
+        code;
+
+    }
+
+
+
+
+
+
+
+    let build =
+    Math.floor(
+        Math.random()*900000+100000
+    );
+
+
+
+
+
+
+    let output =
 
 `-- ShadowObfuscate HARD X
--- Build: ${build}
--- Preset: ${preset}
--- Generated locally
+-- Build ${build}
+-- Preset ${preset}
 
-
-return(function(...)
+(function(...)
 
 ${code}
 
-
-end)(...)
-`;
+end)(...)`;
 
 
 
-document
-.getElementById("output")
-.value =
-output;
 
 
 
-document
-.getElementById("status")
-.innerHTML =
-"Protected | "+build;
+
+    document
+    .getElementById("output")
+    .value =
+    output;
+
+
+
+
+
+    document
+    .getElementById("status")
+    .innerHTML =
+    "Protected | BUILD "+build;
 
 
 
 }
+
 
 
 
@@ -803,44 +847,65 @@ document
 function downloadLua(){
 
 
-let text =
-document
-.getElementById("output")
-.value;
+    let text =
+    document
+    .getElementById("output")
+    .value;
 
 
 
-let blob =
-new Blob(
-[text],
-{
-type:"text/plain"
+    if(!text){
+
+        alert(
+        "Nothing to download"
+        );
+
+        return;
+
+    }
+
+
+
+
+    let blob =
+    new Blob(
+        [text],
+        {
+            type:"text/plain"
+        }
+    );
+
+
+
+    let link =
+    document.createElement("a");
+
+
+
+    link.href =
+    URL.createObjectURL(blob);
+
+
+
+    link.download =
+    "ShadowProtected.lua";
+
+
+
+    link.click();
+
+
 }
+
+
+
+
+
+
+
+console.log(
+"ShadowObfuscate HARD X loaded"
 );
-
-
-
-let a =
-document.createElement("a");
-
-
-
-a.href =
-URL.createObjectURL(blob);
-
-
-
-a.download =
-"ShadowProtected.lua";
-
-
-a.click();
-
-
-}
-
-
-
 </script>
 
 </body>
