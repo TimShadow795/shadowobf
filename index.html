@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 
-<title>ShadowObfuscate HARD</title>
+<title>ShadowObfuscate HARD X v2</title>
 
 <style>
 
@@ -30,137 +29,70 @@ inset:0;
 background:
 linear-gradient(#111 1px,transparent 1px),
 linear-gradient(90deg,#111 1px,transparent 1px);
-background-size:60px 60px;
-opacity:.25;
-pointer-events:none;
+background-size:50px 50px;
+opacity:.2;
 }
-
-
-.nav{
-
-position:absolute;
-top:25px;
-
-background:#111;
-
-border:1px solid #222;
-
-border-radius:30px;
-
-padding:6px;
-
-}
-
-
-.nav button{
-
-background:none;
-
-border:0;
-
-color:#777;
-
-padding:10px 25px;
-
-border-radius:25px;
-
-}
-
-
-.nav .active{
-
-background:#222;
-
-color:white;
-
-}
-
-
 
 .container{
-
-width:1000px;
-
+width:1100px;
+position:relative;
 }
-
-
 
 h1{
-
-font-size:70px;
-
+font-size:64px;
 text-align:center;
-
 margin:0;
-
 color:white;
-
 }
-
-
 
 .subtitle{
-
 text-align:center;
-
 color:#777;
-
-margin-bottom:40px;
-
+margin-bottom:35px;
 }
-
 
 
 .box{
 
 background:#090909;
-
 border:1px solid #222;
-
-border-radius:20px;
-
+border-radius:22px;
 overflow:hidden;
 
-}
+box-shadow:
+0 0 40px #000;
 
+}
 
 
 .header{
 
 padding:20px;
 
-border-bottom:1px solid #222;
-
 display:flex;
-
 justify-content:space-between;
 
-}
+border-bottom:1px solid #222;
 
+}
 
 
 .badge{
 
 background:#222;
-
-padding:7px 15px;
-
+padding:8px 16px;
 border-radius:20px;
-
 font-size:12px;
 
 }
 
 
-
 .editor{
 
 display:grid;
-
 grid-template-columns:1fr 1fr;
 
 }
-
 
 
 .area{
@@ -168,7 +100,6 @@ grid-template-columns:1fr 1fr;
 padding:20px;
 
 }
-
 
 
 .area:first-child{
@@ -182,22 +113,23 @@ border-right:1px solid #222;
 textarea{
 
 width:100%;
+height:340px;
 
-height:320px;
-
-background:#050505;
+background:#030303;
 
 border:1px solid #222;
 
-border-radius:12px;
-
-color:#ddd;
+border-radius:15px;
 
 padding:15px;
 
-resize:none;
+color:#ddd;
 
-font-family:Consolas;
+font-family:Consolas,monospace;
+
+font-size:14px;
+
+resize:none;
 
 }
 
@@ -213,15 +145,32 @@ display:flex;
 
 justify-content:space-between;
 
+align-items:center;
+
+gap:20px;
+
 }
 
 
 
-.options label{
+.options{
 
-margin-right:15px;
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+
+label{
 
 font-size:13px;
+
+color:#aaa;
 
 }
 
@@ -234,7 +183,6 @@ accent-color:white;
 }
 
 
-
 select{
 
 background:#111;
@@ -243,15 +191,33 @@ color:white;
 
 border:1px solid #333;
 
-padding:8px;
+padding:10px;
 
-border-radius:8px;
+border-radius:10px;
 
 }
 
 
 
-button.main{
+button{
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+
+
+button:hover{
+
+transform:scale(1.05);
+
+}
+
+
+
+.main{
 
 background:white;
 
@@ -259,25 +225,48 @@ color:black;
 
 border:0;
 
-border-radius:25px;
+border-radius:30px;
 
-padding:15px 40px;
+padding:15px 35px;
 
 font-weight:bold;
 
-cursor:pointer;
+}
+
+
+
+.small{
+
+background:#151515;
+
+color:white;
+
+border:1px solid #333;
+
+border-radius:30px;
+
+padding:12px 25px;
 
 }
 
+
+
+.buttons{
+
+display:flex;
+
+gap:10px;
+
+}
 
 
 .status{
 
 text-align:center;
 
-color:#666;
-
 margin-top:20px;
+
+color:#777;
 
 }
 
@@ -290,20 +279,6 @@ margin-top:20px;
 <body>
 
 
-<div class="nav">
-
-<button class="active">
-Home
-</button>
-
-<button>
-Obfuscator
-</button>
-
-</div>
-
-
-
 <div class="container">
 
 
@@ -313,7 +288,7 @@ ShadowObfuscate
 
 
 <div class="subtitle">
-HARD mode • Free • Roblox
+HARD X v2 • Roblox Lua Protector
 </div>
 
 
@@ -324,13 +299,14 @@ HARD mode • Free • Roblox
 <div class="header">
 
 <b>
-ShadowObfuscate HARD X
+ShadowObfuscate Engine v2
 </b>
 
 
 <div class="badge">
-BUILD 900001
+BUILD 2.0
 </div>
+
 
 </div>
 
@@ -341,17 +317,18 @@ BUILD 900001
 
 <div class="area">
 
-<p>INPUT</p>
+<p>INPUT LUA</p>
 
 <textarea id="input"
-placeholder='print("Hello")'></textarea>
+placeholder='print("Hello, World!")'></textarea>
 
 </div>
 
 
+
 <div class="area">
 
-<p>OUTPUT</p>
+<p>OUTPUT LUA</p>
 
 <textarea id="output"
 readonly></textarea>
@@ -382,24 +359,25 @@ Rename
 
 
 <label>
-<input id="junk" type="checkbox" checked>
-Junk
+<input id="constants" type="checkbox" checked>
+Constants
 </label>
+
+
+<label>
+<input id="junk" type="checkbox" checked>
+Protection
+</label>
+
 
 
 <select id="preset">
 
-<option>
-Medium
-</option>
+<option>Medium</option>
 
-<option>
-Strong
-</option>
+<option>Strong</option>
 
-<option>
-MAX
-</option>
+<option>MAX</option>
 
 </select>
 
@@ -408,15 +386,34 @@ MAX
 
 
 
+<div class="buttons">
+
+
+<button class="small" onclick="copyOutput()">
+Copy
+</button>
+
+
+<button class="small" onclick="downloadLua()">
+Download
+</button>
+
+
 <button class="main" onclick="runObfuscate()">
-Obfuscate HARD
+Obfuscate
 </button>
 
 
 </div>
 
 
+
 </div>
+
+
+
+</div>
+
 
 
 <div class="status" id="status">
@@ -424,68 +421,59 @@ Ready
 </div>
 
 
+
 </div>
 
 
-
 <script>
-// ShadowObfuscate HARD X Engine FIXED
-// ShadowObfuscate HARD X Engine FIXED
+    const BUILD = () =>
+Math.floor(Math.random()*900000+100000);
 
-function randName(){
 
-    let chars =
+
+function randomName(){
+
+    const chars =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    let s="_";
+    let name="_";
 
-    for(let i=0;i<12;i++){
+    for(let i=0;i<10;i++){
 
-        s += chars[
+        name += chars[
             Math.floor(Math.random()*chars.length)
         ];
 
     }
 
-    return s;
+    return name;
 
 }
 
 
 
 
-function randNum(){
 
-    return Math.floor(
-        Math.random()*900000+10000
-    );
+function encodeString(str){
 
-}
-
-
-
-
-function stringEncode(str){
-
-    let arr=[];
-
+    let bytes=[];
 
     for(let i=0;i<str.length;i++){
 
-        arr.push(
-            str.charCodeAt(i)^57
+        bytes.push(
+            str.charCodeAt(i)
         );
 
     }
 
 
     return `(function()
-local d={${arr.join(",")}}
-local s=""
-for i,v in ipairs(d) do
-s=s..string.char(bit32.bxor(v,57))
+local t={${bytes.join(",")}}
+local r=""
+for i=1,#t do
+r=r..string.char(t[i])
 end
-return s
+return r
 end)()`;
 
 }
@@ -494,33 +482,149 @@ end)()`;
 
 
 
+function protectStrings(code){
 
-function generateJunk(amount){
+    return code.replace(
+        /"([^"\n]*)"/g,
+
+        (_,value)=>{
+
+            return encodeString(value);
+
+        }
+
+    );
+
+}
+
+
+
+
+
+function renameVariables(code){
+
+    let map={};
+
+
+    let regex=
+    /\blocal\s+([a-zA-Z_][a-zA-Z0-9_]*)/g;
+
+
+    let match;
+
+
+    while(
+        (match=regex.exec(code))
+    ){
+
+        let old=match[1];
+
+
+        if(!map[old]){
+
+            map[old]=randomName();
+
+        }
+
+    }
+
+
+
+    for(let old in map){
+
+        let replacement=map[old];
+
+
+        code =
+        code.replace(
+            new RegExp(
+                "\\b"+
+                old+
+                "\\b",
+                "g"
+            ),
+            replacement
+        );
+
+    }
+
+
+    return code;
+
+}
+
+
+
+
+
+function protectNumbers(code){
+
+    return code.replace(
+
+        /\b\d+\b/g,
+
+        n=>{
+
+            let a=
+            Math.floor(
+                Math.random()*50
+            );
+
+
+            return "("+
+            n+
+            "+"+
+            a+
+            "-"+
+            a+
+            ")";
+
+        }
+
+    );
+
+}
+
+
+
+
+
+function generateProtection(level){
+
+
+    let amount=0;
+
+
+    if(level=="Medium")
+        amount=5;
+
+
+    if(level=="Strong")
+        amount=20;
+
+
+    if(level=="MAX")
+        amount=40;
+
+
 
     let out="";
 
 
+
     for(let i=0;i<amount;i++){
 
-        let a=randName();
-        let b=randName();
-        let c=randName();
+
+        let a=randomName();
 
 
         out +=
-`local ${a} = ${randNum()}
-
-local ${b} = function()
-
-local ${c} = ${randNum()}
-
-return ${c}
-
-end
-
+`
+local ${a}=${Math.floor(Math.random()*999999)}
 `;
 
     }
+
 
 
     return out;
@@ -531,134 +635,24 @@ end
 
 
 
+function cleanLua(code){
 
-
-function encryptStrings(code){
-
-
-    return code.replace(
-        /"([^"]*)"/g,
-
-        function(_,text){
-
-            return stringEncode(text);
-
-        }
-
+    code =
+    code.replace(
+        /--.*$/gm,
+        ""
     );
 
 
-}
-
-
-
-
-
-
-
-function renameLocals(code){
-
-
-    let variables=[];
-
-
-    let regex =
-    /\blocal\s+([A-Za-z_][A-Za-z0-9_]*)/g;
-
-
-    let match;
-
-
-
-    while(
-        (match=regex.exec(code)) !== null
-    ){
-
-        variables.push(match[1]);
-
-    }
-
-
-
-
-    for(let oldName of variables){
-
-
-        let newName =
-        randName();
-
-
-
-        let safe =
-        new RegExp(
-            "\\b"+oldName+"\\b",
-            "g"
-        );
-
-
-
-        code =
-        code.replace(
-            safe,
-            newName
-        );
-
-
-    }
-
-
-
-    return code;
-
+    return code.trim();
 
 }
-
-
-
-
-
-
-
-function hideConstants(code){
-
-
-    return code.replace(
-
-        /\b\d+\b/g,
-
-        function(n){
-
-
-            let x =
-            Math.floor(
-                Math.random()*100
-            );
-
-
-            return "("+
-            n+
-            "+"+
-            x+
-            "-"+
-            x+
-            ")";
-
-
-        }
-
-    );
-
-
-}
-
-
 
 
 
 
 
 function runObfuscate(){
-
 
 
     let code =
@@ -671,7 +665,7 @@ function runObfuscate(){
     if(!code.trim()){
 
         alert(
-        "Paste Lua code first"
+        "Insert Lua code first"
         );
 
         return;
@@ -680,16 +674,18 @@ function runObfuscate(){
 
 
 
-
-    // remove comments
-
-    code =
-    code.replace(
-        /--.*$/gm,
-        ""
-    );
+    let preset =
+    document
+    .getElementById("preset")
+    .value;
 
 
+
+    let build=BUILD();
+
+
+
+    code=cleanLua(code);
 
 
 
@@ -700,12 +696,9 @@ function runObfuscate(){
     .checked
     ){
 
-        code =
-        renameLocals(code);
+        code=renameVariables(code);
 
     }
-
-
 
 
 
@@ -717,8 +710,7 @@ function runObfuscate(){
     .checked
     ){
 
-        code =
-        encryptStrings(code);
+        code=protectStrings(code);
 
     }
 
@@ -726,46 +718,15 @@ function runObfuscate(){
 
 
 
-
-
-    code =
-    hideConstants(code);
-
-
-
-
-
-
-
-
-    let preset =
+    if(
     document
-    .getElementById("preset")
-    .value;
+    .getElementById("constants")
+    .checked
+    ){
 
-
-
-
-
-    let junk=100;
-
-
-
-    if(preset=="Strong"){
-
-        junk=500;
+        code=protectNumbers(code);
 
     }
-
-
-
-    if(preset=="MAX"){
-
-        junk=1600;
-
-    }
-
-
 
 
 
@@ -778,7 +739,7 @@ function runObfuscate(){
     ){
 
         code =
-        generateJunk(junk)
+        generateProtection(preset)
         +
         "\n\n"
         +
@@ -790,51 +751,82 @@ function runObfuscate(){
 
 
 
+    let result =
+
+`-- ShadowObfuscate HARD X v2
+-- Build: ${build}
+-- Mode: ${preset}
 
 
-    let build =
-    Math.floor(
-        Math.random()*900000+100000
-    );
-
-
-
-
-
-
-    let output =
-
-`-- ShadowObfuscate HARD X
--- Build ${build}
--- Preset ${preset}
-
-(function(...)
+(function()
 
 ${code}
 
-end)(...)`;
 
-
-
+end)()
+`;
 
 
 
 
     document
     .getElementById("output")
-    .value =
-    output;
-
-
+    .value=result;
 
 
 
     document
     .getElementById("status")
-    .innerHTML =
-    "Protected | BUILD "+build;
+    .innerHTML=
+
+    "Protected ✓ BUILD "+build;
 
 
+
+}
+    function copyOutput(){
+
+    let output =
+    document
+    .getElementById("output");
+
+
+    if(!output.value){
+
+        alert(
+        "Nothing to copy"
+        );
+
+        return;
+
+    }
+
+
+
+    navigator.clipboard.writeText(
+        output.value
+    )
+    .then(()=>{
+
+        document
+        .getElementById("status")
+        .innerHTML=
+        "Copied ✓";
+
+    })
+    .catch(()=>{
+
+        output.select();
+
+        document.execCommand("copy");
+
+
+        document
+        .getElementById("status")
+        .innerHTML=
+        "Copied ✓";
+
+    });
 
 }
 
@@ -842,11 +834,7 @@ end)(...)`;
 
 
 
-
-
-
 function downloadLua(){
-
 
     let text =
     document
@@ -867,7 +855,6 @@ function downloadLua(){
 
 
 
-
     let blob =
     new Blob(
         [text],
@@ -878,23 +865,42 @@ function downloadLua(){
 
 
 
-    let link =
-    document.createElement("a");
-
-
-
-    link.href =
+    let url =
     URL.createObjectURL(blob);
 
 
 
-    link.download =
+    let a =
+    document.createElement("a");
+
+
+
+    a.href=url;
+
+
+    a.download=
     "ShadowProtected.lua";
 
 
 
-    link.click();
+    document.body.appendChild(a);
 
+
+    a.click();
+
+
+    document.body.removeChild(a);
+
+
+
+    URL.revokeObjectURL(url);
+
+
+
+    document
+    .getElementById("status")
+    .innerHTML=
+    "Downloaded ✓";
 
 }
 
@@ -902,12 +908,12 @@ function downloadLua(){
 
 
 
-
-
 console.log(
-"ShadowObfuscate HARD X loaded"
+"ShadowObfuscate HARD X v2 loaded"
 );
+
 </script>
+
 
 </body>
 </html>
