@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 
-<title>ShadowObfuscate HARD X v2</title>
+<title>ShadowObfuscate HARD X v4</title>
 
 <style>
 
@@ -12,87 +13,151 @@ box-sizing:border-box;
 font-family:Inter,Arial,sans-serif;
 }
 
+
 body{
+
 margin:0;
 height:100vh;
+
 background:#050505;
-color:#ddd;
+
+color:white;
+
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
+
+overflow:hidden;
+
 }
 
+
+
 body:before{
+
 content:"";
+
 position:fixed;
+
 inset:0;
+
 background:
 linear-gradient(#111 1px,transparent 1px),
 linear-gradient(90deg,#111 1px,transparent 1px);
+
 background-size:50px 50px;
-opacity:.2;
+
+opacity:.18;
+
+pointer-events:none;
+
+z-index:0;
+
 }
+
+
+
 
 .container{
-width:1100px;
+
+width:1150px;
+
 position:relative;
+
+z-index:1;
+
 }
+
+
 
 h1{
-font-size:64px;
+
+font-size:70px;
+
 text-align:center;
+
 margin:0;
-color:white;
+
+letter-spacing:-3px;
+
 }
+
+
 
 .subtitle{
+
 text-align:center;
+
 color:#777;
+
 margin-bottom:35px;
+
 }
 
 
-.box{
+
+
+.card{
 
 background:#090909;
+
 border:1px solid #222;
-border-radius:22px;
+
+border-radius:25px;
+
 overflow:hidden;
 
-box-shadow:
-0 0 40px #000;
+box-shadow:0 0 40px #000;
 
 }
+
+
 
 
 .header{
 
+height:70px;
+
 padding:20px;
 
 display:flex;
+
 justify-content:space-between;
+
+align-items:center;
 
 border-bottom:1px solid #222;
 
 }
 
 
+
+
 .badge{
 
-background:#222;
-padding:8px 16px;
+background:#1b1b1b;
+
+padding:8px 15px;
+
 border-radius:20px;
+
 font-size:12px;
 
+color:#aaa;
+
 }
+
+
 
 
 .editor{
 
 display:grid;
+
 grid-template-columns:1fr 1fr;
 
 }
+
 
 
 .area{
@@ -100,6 +165,7 @@ grid-template-columns:1fr 1fr;
 padding:20px;
 
 }
+
 
 
 .area:first-child{
@@ -113,25 +179,36 @@ border-right:1px solid #222;
 textarea{
 
 width:100%;
-height:340px;
 
-background:#030303;
+height:360px;
 
-border:1px solid #222;
+background:#020202;
+
+border:1px solid #333;
 
 border-radius:15px;
 
 padding:15px;
 
-color:#ddd;
+color:white;
 
 font-family:Consolas,monospace;
 
-font-size:14px;
-
 resize:none;
 
+outline:none;
+
 }
+
+
+
+textarea:focus{
+
+border-color:white;
+
+}
+
+
 
 
 
@@ -147,9 +224,8 @@ justify-content:space-between;
 
 align-items:center;
 
-gap:20px;
-
 }
+
 
 
 
@@ -157,30 +233,109 @@ gap:20px;
 
 display:flex;
 
-align-items:center;
-
 gap:15px;
 
-flex-wrap:wrap;
+align-items:center;
 
 }
 
 
-label{
 
-font-size:13px;
+
+.option{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+cursor:pointer;
 
 color:#aaa;
 
+font-size:13px;
+
+user-select:none;
+
+}
+
+
+
+.option input{
+
+display:none;
+
 }
 
 
 
-input{
+.check{
 
-accent-color:white;
+width:20px;
+
+height:20px;
+
+border-radius:6px;
+
+background:#111;
+
+border:1px solid #333;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+transition:.25s;
 
 }
+
+
+
+.check:after{
+
+content:"";
+
+width:8px;
+
+height:8px;
+
+border-radius:3px;
+
+background:black;
+
+opacity:0;
+
+transform:scale(0);
+
+transition:.25s;
+
+}
+
+
+
+
+.option input:checked + .check{
+
+background:white;
+
+box-shadow:0 0 15px rgba(255,255,255,.5);
+
+}
+
+
+
+.option input:checked + .check:after{
+
+opacity:1;
+
+transform:scale(1);
+
+}
+
+
 
 
 select{
@@ -194,6 +349,17 @@ border:1px solid #333;
 padding:10px;
 
 border-radius:10px;
+
+}
+
+
+
+
+.buttons{
+
+display:flex;
+
+gap:10px;
 
 }
 
@@ -217,17 +383,12 @@ transform:scale(1.05);
 
 
 
-.main{
 
-background:white;
+.btn{
 
-color:black;
+padding:14px 30px;
 
-border:0;
-
-border-radius:30px;
-
-padding:15px 35px;
+border-radius:25px;
 
 font-weight:bold;
 
@@ -235,29 +396,29 @@ font-weight:bold;
 
 
 
-.small{
+.dark{
 
 background:#151515;
 
-color:white;
-
 border:1px solid #333;
 
-border-radius:30px;
-
-padding:12px 25px;
+color:white;
 
 }
 
 
 
-.buttons{
+.main{
 
-display:flex;
+background:white;
 
-gap:10px;
+border:0;
+
+color:black;
 
 }
+
+
 
 
 .status{
@@ -271,12 +432,14 @@ color:#777;
 }
 
 
+
 </style>
 
 </head>
 
 
 <body>
+
 
 
 <div class="container">
@@ -288,27 +451,31 @@ ShadowObfuscate
 
 
 <div class="subtitle">
-HARD X v2 • Roblox Lua Protector
+HARD X v4 • 10 Layer Protection
 </div>
 
 
 
-<div class="box">
+
+<div class="card">
+
 
 
 <div class="header">
 
 <b>
-ShadowObfuscate Engine v2
+Shadow Engine v4
 </b>
 
 
 <div class="badge">
-BUILD 2.0
+BUILD 400001
 </div>
 
 
 </div>
+
+
 
 
 
@@ -320,7 +487,7 @@ BUILD 2.0
 <p>INPUT LUA</p>
 
 <textarea id="input"
-placeholder='print("Hello, World!")'></textarea>
+placeholder='print("Hello World")'></textarea>
 
 </div>
 
@@ -336,7 +503,9 @@ readonly></textarea>
 </div>
 
 
+
 </div>
+
 
 
 
@@ -346,28 +515,58 @@ readonly></textarea>
 <div class="options">
 
 
-<label>
+<label class="option">
+
 <input id="strings" type="checkbox" checked>
+
+<span class="check"></span>
+
 Strings
+
 </label>
 
 
-<label>
+
+
+<label class="option">
+
 <input id="rename" type="checkbox" checked>
+
+<span class="check"></span>
+
 Rename
+
 </label>
 
 
-<label>
-<input id="constants" type="checkbox" checked>
+
+
+
+<label class="option">
+
+<input id="numbers" type="checkbox">
+
+<span class="check"></span>
+
 Constants
+
 </label>
 
 
-<label>
+
+
+
+<label class="option">
+
 <input id="junk" type="checkbox" checked>
+
+<span class="check"></span>
+
 Protection
+
 </label>
+
+
 
 
 
@@ -382,25 +581,37 @@ Protection
 </select>
 
 
+
 </div>
+
+
 
 
 
 <div class="buttons">
 
 
-<button class="small" onclick="copyOutput()">
+<button class="btn dark"
+onclick="copyOutput()">
+
 Copy
+
 </button>
 
 
-<button class="small" onclick="downloadLua()">
+<button class="btn dark"
+onclick="downloadLua()">
+
 Download
+
 </button>
 
 
-<button class="main" onclick="runObfuscate()">
+<button class="btn main"
+onclick="runObfuscate()">
+
 Obfuscate
+
 </button>
 
 
@@ -417,18 +628,21 @@ Obfuscate
 
 
 <div class="status" id="status">
+
 Ready
-</div>
-
-
 
 </div>
+
+
+
+</div>
+
 
 
 <script>
-    const BUILD = () =>
-Math.floor(Math.random()*900000+100000);
-
+    // ===============================
+// ShadowObfuscate HARD X v4 ENGINE
+// ===============================
 
 
 function randomName(){
@@ -436,17 +650,45 @@ function randomName(){
     const chars =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    let name="_";
+    let out="_";
 
-    for(let i=0;i<10;i++){
+    for(let i=0;i<12;i++){
 
-        name += chars[
+        out += chars[
             Math.floor(Math.random()*chars.length)
         ];
 
     }
 
-    return name;
+    return out;
+
+}
+
+
+
+
+function randomBuild(){
+
+    return Math.floor(
+        Math.random()*900000+100000
+    );
+
+}
+
+
+
+
+// 1. COMMENT CLEANER
+
+function removeComments(code){
+
+    code = code.replace(
+        /--(?!\[\[).*$/gm,
+        ""
+    );
+
+
+    return code;
 
 }
 
@@ -454,26 +696,30 @@ function randomName(){
 
 
 
-function encodeString(str){
+// 2. SAFE STRING ENCODER
 
-    let bytes=[];
+function encodeString(value){
 
-    for(let i=0;i<str.length;i++){
+    let nums=[];
 
-        bytes.push(
-            str.charCodeAt(i)
+
+    for(let i=0;i<value.length;i++){
+
+        nums.push(
+            value.charCodeAt(i)
         );
 
     }
 
 
+
     return `(function()
-local t={${bytes.join(",")}}
-local r=""
+local t={${nums.join(",")}}
+local s=""
 for i=1,#t do
-r=r..string.char(t[i])
+s=s..string.char(t[i])
 end
-return r
+return s
 end)()`;
 
 }
@@ -484,16 +730,35 @@ end)()`;
 
 function protectStrings(code){
 
+
     return code.replace(
-        /"([^"\n]*)"/g,
 
-        (_,value)=>{
+        /(["'])(?:(?=(\\?))\2.)*?\1/g,
 
-            return encodeString(value);
+        function(match){
+
+            let text =
+            match.substring(
+                1,
+                match.length-1
+            );
+
+
+            // не трогаем большие строки
+
+            if(text.length>100){
+
+                return match;
+
+            }
+
+
+            return encodeString(text);
 
         }
 
     );
+
 
 }
 
@@ -501,28 +766,29 @@ function protectStrings(code){
 
 
 
-function renameVariables(code){
+// 3. LOCAL RENAMER
 
-    let map={};
-
-
-    let regex=
-    /\blocal\s+([a-zA-Z_][a-zA-Z0-9_]*)/g;
+function renameLocals(code){
 
 
-    let match;
+    let names={};
+
+
+    let regex =
+    /\blocal\s+([A-Za-z_][A-Za-z0-9_]*)/g;
+
+
+
+    let m;
 
 
     while(
-        (match=regex.exec(code))
+        (m=regex.exec(code))
     ){
 
-        let old=match[1];
+        if(!names[m[1]]){
 
-
-        if(!map[old]){
-
-            map[old]=randomName();
+            names[m[1]]=randomName();
 
         }
 
@@ -530,21 +796,27 @@ function renameVariables(code){
 
 
 
-    for(let old in map){
 
-        let replacement=map[old];
+    for(let old in names){
+
+
+        let n=names[old];
+
+
+        // только отдельные слова
+
+        let r =
+        new RegExp(
+            "(?<!\\.)\\b"+
+            old+
+            "\\b",
+            "g"
+        );
 
 
         code =
-        code.replace(
-            new RegExp(
-                "\\b"+
-                old+
-                "\\b",
-                "g"
-            ),
-            replacement
-        );
+        code.replace(r,n);
+
 
     }
 
@@ -557,31 +829,38 @@ function renameVariables(code){
 
 
 
+// 4. CONSTANT PROTECTION
+
+
 function protectNumbers(code){
+
 
     return code.replace(
 
         /\b\d+\b/g,
 
-        n=>{
+        function(num){
 
-            let a=
+
+            let a =
             Math.floor(
-                Math.random()*50
+                Math.random()*20
             );
 
 
             return "("+
-            n+
+            num+
             "+"+
             a+
             "-"+
             a+
             ")";
 
+
         }
 
     );
+
 
 }
 
@@ -589,7 +868,10 @@ function protectNumbers(code){
 
 
 
-function generateProtection(level){
+// 5. SAFE DEAD CODE
+
+
+function deadCode(level){
 
 
     let amount=0;
@@ -600,11 +882,12 @@ function generateProtection(level){
 
 
     if(level=="Strong")
-        amount=20;
+        amount=15;
 
 
     if(level=="MAX")
-        amount=40;
+        amount=30;
+
 
 
 
@@ -615,12 +898,119 @@ function generateProtection(level){
     for(let i=0;i<amount;i++){
 
 
-        let a=randomName();
-
-
         out +=
 `
-local ${a}=${Math.floor(Math.random()*999999)}
+do
+local ${randomName()} = ${i}
+end
+`;
+
+    }
+
+
+    return out;
+
+}
+
+
+
+
+
+// 6. BUILD HEADER
+
+
+function createHeader(mode){
+
+
+    return `
+
+-- ShadowObfuscate HARD X v4
+
+-- Mode: ${mode}
+
+-- Build: ${randomBuild()}
+
+
+`;
+
+}
+
+
+
+
+
+// 7. SAFE PACK
+
+
+function packCode(code){
+
+
+    return code
+    .replace(/\n\s*\n+/g,"\n")
+    .trim();
+
+
+}
+
+
+
+
+
+// 8. INTEGRITY INFO
+
+
+function integrity(code){
+
+
+    let hash=0;
+
+
+    for(let i=0;i<code.length;i++){
+
+        hash =
+        ((hash<<5)-hash)
+        +
+        code.charCodeAt(i);
+
+        hash|=0;
+
+    }
+
+
+    return Math.abs(hash);
+
+}
+
+
+
+
+
+// 9. PROTECTION LAYER
+
+
+function protectionLayer(mode){
+
+
+    let count=10;
+
+
+    if(mode=="Strong")
+        count=25;
+
+
+    if(mode=="MAX")
+        count=50;
+
+
+
+    let out="";
+
+
+
+    for(let i=0;i<count;i++){
+
+        out +=
+`local ${randomName()}=${Math.floor(Math.random()*9999)}
 `;
 
     }
@@ -635,21 +1025,7 @@ local ${a}=${Math.floor(Math.random()*999999)}
 
 
 
-function cleanLua(code){
-
-    code =
-    code.replace(
-        /--.*$/gm,
-        ""
-    );
-
-
-    return code.trim();
-
-}
-
-
-
+// 10. MAIN ENGINE
 
 
 function runObfuscate(){
@@ -665,7 +1041,7 @@ function runObfuscate(){
     if(!code.trim()){
 
         alert(
-        "Insert Lua code first"
+        "Insert Lua code"
         );
 
         return;
@@ -674,18 +1050,17 @@ function runObfuscate(){
 
 
 
-    let preset =
+    let mode =
     document
     .getElementById("preset")
     .value;
 
 
 
-    let build=BUILD();
 
+    code =
+    removeComments(code);
 
-
-    code=cleanLua(code);
 
 
 
@@ -696,7 +1071,8 @@ function runObfuscate(){
     .checked
     ){
 
-        code=renameVariables(code);
+        code =
+        renameLocals(code);
 
     }
 
@@ -710,7 +1086,8 @@ function runObfuscate(){
     .checked
     ){
 
-        code=protectStrings(code);
+        code =
+        protectStrings(code);
 
     }
 
@@ -720,11 +1097,12 @@ function runObfuscate(){
 
     if(
     document
-    .getElementById("constants")
+    .getElementById("numbers")
     .checked
     ){
 
-        code=protectNumbers(code);
+        code =
+        protectNumbers(code);
 
     }
 
@@ -739,9 +1117,9 @@ function runObfuscate(){
     ){
 
         code =
-        generateProtection(preset)
+        protectionLayer(mode)
         +
-        "\n\n"
+        deadCode(mode)
         +
         code;
 
@@ -751,20 +1129,29 @@ function runObfuscate(){
 
 
 
+    code =
+    packCode(code);
+
+
+
+
+    let hash =
+    integrity(code);
+
+
+
+
     let result =
 
-`-- ShadowObfuscate HARD X v2
--- Build: ${build}
--- Mode: ${preset}
-
-
-(function()
-
-${code}
-
-
-end)()
-`;
+    createHeader(mode)
+    +
+    "-- Hash: "
+    +
+    hash
+    +
+    "\n\n"
+    +
+    code;
 
 
 
@@ -777,21 +1164,31 @@ end)()
 
     document
     .getElementById("status")
-    .innerHTML=
-
-    "Protected ✓ BUILD "+build;
-
+    .innerHTML =
+    "Protected ✓ | "
+    +
+    mode
+    +
+    " | Hash "
+    +
+    hash;
 
 
 }
-    function copyOutput(){
+    // ===============================
+// ShadowObfuscate HARD X v4 FINAL
+// ===============================
 
-    let output =
+
+
+function copyOutput(){
+
+    let box =
     document
     .getElementById("output");
 
 
-    if(!output.value){
+    if(!box.value){
 
         alert(
         "Nothing to copy"
@@ -803,30 +1200,36 @@ end)()
 
 
 
-    navigator.clipboard.writeText(
-        output.value
-    )
+    navigator.clipboard
+    .writeText(box.value)
     .then(()=>{
+
 
         document
         .getElementById("status")
-        .innerHTML=
+        .innerHTML =
         "Copied ✓";
+
 
     })
     .catch(()=>{
 
-        output.select();
 
-        document.execCommand("copy");
+        box.select();
+
+        document.execCommand(
+            "copy"
+        );
 
 
         document
         .getElementById("status")
-        .innerHTML=
+        .innerHTML =
         "Copied ✓";
 
+
     });
+
 
 }
 
@@ -834,7 +1237,9 @@ end)()
 
 
 
+
 function downloadLua(){
+
 
     let text =
     document
@@ -845,9 +1250,11 @@ function downloadLua(){
 
     if(!text){
 
+
         alert(
         "Nothing to download"
         );
+
 
         return;
 
@@ -855,7 +1262,8 @@ function downloadLua(){
 
 
 
-    let blob =
+
+    let file =
     new Blob(
         [text],
         {
@@ -865,8 +1273,10 @@ function downloadLua(){
 
 
 
+
     let url =
-    URL.createObjectURL(blob);
+    URL.createObjectURL(file);
+
 
 
 
@@ -878,29 +1288,37 @@ function downloadLua(){
     a.href=url;
 
 
-    a.download=
+    a.download =
     "ShadowProtected.lua";
 
 
 
-    document.body.appendChild(a);
+    document
+    .body
+    .appendChild(a);
+
 
 
     a.click();
 
 
-    document.body.removeChild(a);
+
+    document
+    .body
+    .removeChild(a);
 
 
 
-    URL.revokeObjectURL(url);
+    URL
+    .revokeObjectURL(url);
 
 
 
     document
     .getElementById("status")
-    .innerHTML=
+    .innerHTML =
     "Downloaded ✓";
+
 
 }
 
@@ -909,11 +1327,13 @@ function downloadLua(){
 
 
 console.log(
-"ShadowObfuscate HARD X v2 loaded"
+"ShadowObfuscate HARD X v4 loaded"
 );
+
 
 </script>
 
 
 </body>
+
 </html>
